@@ -1,6 +1,5 @@
 # build stage
-FROM golang:alpine AS build-env
-RUN apk --no-cache add build-base git gcc
+FROM quay.io/spivegin/golang:v1.15.2 AS build-env
 ADD . /src
 RUN cd /src && go build -v -ldflags "-s -w"
 
@@ -8,4 +7,4 @@ RUN cd /src && go build -v -ldflags "-s -w"
 FROM quay.io/spivegin/tlmbasedebian
 WORKDIR /opt
 COPY --from=build-env /src/glider /opt/
-ENTRYPOINT ["./glider"]
+#ENTRYPOINT ["./glider"]
