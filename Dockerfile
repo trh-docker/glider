@@ -5,7 +5,7 @@ ADD . /src
 RUN cd /src && go build -v -ldflags "-s -w"
 
 # final stage
-FROM alpine
-WORKDIR /app
-COPY --from=build-env /src/glider /app/
+FROM quay.io/spivegin/tlmbasedebian
+WORKDIR /opt
+COPY --from=build-env /src/glider /opt/
 ENTRYPOINT ["./glider"]
